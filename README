@@ -1,0 +1,190 @@
+NAME
+    `TAPORlib' - TAPORlib is a Perl module that contains some useful
+    functions.
+
+DESCRIPTION
+    This library used by some great modules as WWW::Promotion, etc. It is
+    provided by TAPOR, Inc.
+
+IMPORTED FUNCTIONS/VARS
+
+  $string = &Delete_CRLF_from_End_Of_String($string);
+
+     Description:
+
+     Function removes trailing "r" and "\n" from end of $string.
+
+  &add_string_to_file("filename",$string);
+
+     Description:
+
+     This function adds $string to the end of file "filename".
+
+  @allfiles = &GetAllFilesInDir($dirname);
+
+     Description:
+
+     This function returns massive that contains filenames with 
+     path in directory $dirname and filenames with path in subdirs also.
+
+  %out = &GetPageNow_4(%pagenow);
+
+     Description:
+ 
+     Use this function to get page from website. 
+
+     Usage:
+
+     $pagenow{'url'}     = "http://www.any.com/anyware";
+     $pagenow{'method'}  = "POST|GET";
+     $pagenow{'referer'} = "http://www.any.com/anyware/ref";
+     $pagenow{'content'} = "user=blah\&info=blah-blah";
+
+     # If defined this agent string will be used insted Netscape
+     $pagenow{'agent'}
+
+     # If specified Print some useful information to this logfile;
+     $pagenow{'logfile'} = "logfile.log";
+
+     # If proxy not specified then Get Page without usage of proxy.
+     $pagenow{'proxy'} = "proxy.online.ru:8080";
+
+     # If specified then send to page this cookies
+     $pagenow{'cookies'} = "C: 12345";
+
+     # TimeOut to Connect To Proxy/Host. Default: 60
+     $pagenow{'timeoutconnect'} = 60;
+
+     # TimeOut to Request Page. Default: 300
+     $pagenow{'timeoutrequest'} = 180;
+
+     # No Request Page Return Simple 'FAST MODE' page.
+     $pagenow{'norequest'} = 1;
+
+     # Show Error Page If Error Detected
+     $pagenow{'showerrors'} = 1;
+
+     %out = &GetPageNow_4(%pagenow);
+
+     Output:
+ 
+     $out{'error'} == 0 - No errors
+     $out{'error'} == 1 - Some Error.
+     $out{'errortxt'}   - Error description if $out{'error'} == 1
+     $out{'status'}  - Status of downloaded page
+     $out{'headers'} - Header of downloaded page
+     $out{'body'}    - Body of downloaded page
+     $out{'cookies'} - Cookies If page return some cookies
+
+  $text = &uri_escape($text,$pattern);
+
+     Description:
+
+     This function escapes url, commonly used to changes 
+     special symbols in url.
+
+     Usage:
+
+     $text    = "sss"
+     $pattern = "\x00-\xFF";
+     $text = &uri_escape($text,$pattern);
+ 
+     Output:
+ 
+     $text = "%73%73%73";
+
+  &HTMLdie($text);
+
+     Description:
+
+     Send HTML page with $text to STDOUT and exit program.
+
+  &isrunninglocaly()
+
+     Description:
+
+     Function returns TRUE if script executed in console, FALSE 
+     otherwise, e.g. when running under Apache.
+
+  $rndstring = &GenerateRandomString($number);
+
+     Description:
+
+     This function returns string with $number random chars.
+ 
+  &CreateAndSendOutHtmlPage($a,$type);
+
+     Description:
+
+     This function will create HTML page, print it to stdout and exit.
+     $type may be:
+     1 - CreateAndSendOutHtmlPage() will execute script in
+         $a path, print it output to stdout and exit.
+     2 - CreateAndSendOutHtmlPage() will read file $a,
+         print it contents to stdout and exit.
+     3 - CreateAndSendOutHtmlPage() will print string
+         "Location: $a\n\n" to stdout and exit.
+
+     Examples:
+     CreateAndSendOutHtmlPage("/path/index.cgi",1);
+     CreateAndSendOutHtmlPage("/path/index.html",2);
+     CreateAndSendOutHtmlPage("http://www.tapor.com",3);
+ 
+  &CheckForDomain($domain);
+
+     Description:
+ 
+     This function does very simple task, it compare $domain with $ENV{'HTTP_HOST'}.
+     If equal function returns TRUE otherwise it returns FALSE.
+
+  &SendToDomainIfNotThisDomain($domain);
+
+     Description:
+
+     This function resend Web user to new location if domain not $domain.
+     See previous function description.
+
+  $string = &MassiveToString(@massive);
+
+     Description:
+ 
+     This function does very simple task, it convert massive @massive to string
+     $string.
+
+  %cc=&GetCountryCodes();
+
+     Description:
+     Returns hash with Country codes as:
+
+     %countrycodes = (
+        'ca' => 'Canada',
+        'af' => 'Afghanistan',
+        'al' => 'Albania',
+         ...
+         );
+ 
+  %out = &newsocketto(*S,$host,$port,$timeoutconnect);
+
+     Description:
+
+     This function returns connected socket to $host:$port if no error.
+     $timeoutconnect is time limit to connect to $host:$port.
+ 
+     Usage:
+
+     %out = &newsocketto(*S,$host,$port,$timeoutconnect);
+ 
+     Output:
+
+     $out{'error'} == 0 - No errors
+     $out{'error'} == 1 - Some Error.
+     $out{'errortxt'}   - Error description if $out{'error'} == 1
+     S - connected socket to $host:$port.
+
+COPYRIGHT
+    Copyright (c) 2000-2001 TAPOR, Inc. All rights reserved. This program is
+    free software; you can redistribute it and/or modify it under the same
+    terms as Perl itself.
+
+    http://www.tapor.com/TAPORlib/
+
